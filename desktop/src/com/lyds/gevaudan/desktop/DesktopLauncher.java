@@ -8,5 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new Gevaudan(), config);
+		config.width=Gevaudan.WIDTH;
+		config.height=Gevaudan.HEIGHT;
+		config.title=Gevaudan.TITLE;
 	}
 }
