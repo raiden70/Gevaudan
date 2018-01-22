@@ -10,7 +10,7 @@ import com.lyds.gevaudan.states.MenuState;
 
 public class Gevaudan extends ApplicationAdapter {
 	public static final int WIDTH=800;
-	public static final int HEIGHT=400;
+	public static final int HEIGHT=480;
 	public static final String TITLE="GEVAUDAN";
     private GameStateManager gsm;
 	private SpriteBatch batch;
