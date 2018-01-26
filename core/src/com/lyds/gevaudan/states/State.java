@@ -22,4 +22,5 @@ public abstract class State {
     public abstract void handleInput();
     public abstract void update(float dt);
     public abstract void render(SpriteBatch spriteBatch);
+    public abstract void dispose();
 }
