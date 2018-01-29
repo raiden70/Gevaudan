@@ -55,10 +55,10 @@ public class Wolf {
         velocity.y=(250);
     }
     public void accelerate() {
-        velocity.x=(650);
+        velocity.x=(150);
     }
     public void deaccelerate()
     {
-        velocity.x=(-650);
+        velocity.x=(-150);
     }
 }
