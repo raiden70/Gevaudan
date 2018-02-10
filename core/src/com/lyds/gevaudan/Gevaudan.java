@@ -33,6 +33,7 @@ public class Gevaudan extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
+
 		batch.dispose();
 	}
 }
