@@ -13,12 +13,14 @@ public class Wolf {
     private static final int GRAVITY=-10;
     private Vector3 position;
     private Texture wolf;
+    private Integer lifePoints;
     private Vector3 velocity;
 
     public Wolf(int x,int y)
     {
         position=new Vector3(x,y,0);
         velocity=new Vector3(0,0,0);
+        lifePoints = 1000;
         wolf=new Texture("wolf1.png");
     }
 
