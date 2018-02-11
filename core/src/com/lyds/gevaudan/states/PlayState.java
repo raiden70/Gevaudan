@@ -58,7 +58,7 @@ public class PlayState extends State{
     }
 
     public Array<Ennemy> ennemy_ressources(){
-        Array<Ennemy> resources = new Array<>();
+        Array<Ennemy> resources = new Array<Ennemy>();
         bear = new Bear(2000,15);
         badger = new Badger(2000,15);
         fox = new Fox(2000,15);
@@ -80,7 +80,7 @@ public class PlayState extends State{
     }
 
     public Array<Bonus> bonus_ressources(){
-        Array<Bonus> resources_bonus = new Array<>();
+        Array<Bonus> resources_bonus = new Array<Bonus>();
         biche = new Biche(2000,15);
         grappe = new Grappe(2000,15);
         poule = new Poule(2000,15);
@@ -105,7 +105,7 @@ public class PlayState extends State{
 
     public Array<Ennemy> Ennemy_list(){
         Array<Ennemy> ressources = ennemy_ressources();
-        Array<Ennemy> actu = new Array<>();
+        Array<Ennemy> actu = new Array<Ennemy>();
         int number_of_ennemy_to_add = 30, rand = 0, index = 0, j = 0;
 
         while ( j <= number_of_ennemy_to_add) {
@@ -124,7 +124,7 @@ public class PlayState extends State{
 
     public Array<Bonus> Bonus_list(){
         Array<Bonus> ressources = bonus_ressources();
-        Array<Bonus> actu = new Array<>();
+        Array<Bonus> actu = new Array<Bonus>();
         int number_of_bonus_to_add = 30, rand = 0, index = 0, j = 0;
 
         while ( j <= number_of_bonus_to_add) {
