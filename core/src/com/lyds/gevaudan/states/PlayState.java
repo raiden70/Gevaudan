@@ -15,6 +15,7 @@ import com.lyds.gevaudan.sprites.Wolf;
 public class PlayState extends State{
     private Wolf wolf;
     private Texture background;
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
        wolf=new Wolf(100,100);

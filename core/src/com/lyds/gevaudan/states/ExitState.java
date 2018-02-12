@@ -6,16 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lyds.gevaudan.Gevaudan;
 
 /**
- * Created by root on 10/02/18.
+ * Created by root on 11/02/18.
  */
 
-public class HistoryState extends State {
+public class ExitState extends State {
     private Texture background;
 
-    public HistoryState(GameStateManager gsm) {
-
+    public ExitState(GameStateManager gsm) {
         super(gsm);
-
         background=new Texture("view2.png");
         cam.setToOrtho(false, Gevaudan.WIDTH,Gevaudan.HEIGHT);
     }
@@ -24,14 +22,12 @@ public class HistoryState extends State {
     public void handleInput() {
 
         if (Gdx.input.justTouched()) {
+            Gdx.app.exit();
 
         }
-
     }
-
     @Override
     public void update(float dt) {
-
         handleInput();
 
     }
@@ -51,5 +47,3 @@ public class HistoryState extends State {
 
     }
 }
-
-
