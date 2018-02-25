@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lyds.gevaudan.Gevaudan;
 
-import javax.xml.soap.Text;
-
 /**
  * Created by ami on 20/01/2018.
  */
@@ -27,16 +25,17 @@ public class MenuState extends State {
         options = new Texture("option.png");
         exit = new Texture("exit.png");
         score = new Texture("scores.png");
+        //playBtn=new Texture("cloud.png");
         cam.setToOrtho(false, Gevaudan.WIDTH,Gevaudan.HEIGHT);
     }
 
     @Override
     public void handleInput() {
-    if (Gdx.input.justTouched())
-    {
-        gsm.set(new PlayState(gsm));
-        dispose();
-    }
+        if (Gdx.input.justTouched())
+        {
+            gsm.set(new PlayState(gsm));
+            dispose();
+        }
     }
 
     @Override
@@ -65,6 +64,7 @@ public class MenuState extends State {
         spriteBatch.draw(exit,100,158);
         spriteBatch.draw(options,150,155);
         spriteBatch.draw(score,145,120);
+        //spriteBatch.draw(playBtn,100,100);
         spriteBatch.end();
     }
 }

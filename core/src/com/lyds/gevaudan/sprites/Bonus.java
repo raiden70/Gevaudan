@@ -53,8 +53,12 @@ public class Bonus {
     }
 
     public void reposition(float x){
-        position.set(x, 15);
+        position.set(x, 0);
         bounds.setPosition(position.x, position.y);
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 
     public int width(){
@@ -62,7 +66,7 @@ public class Bonus {
     }
 
     public boolean collides(Rectangle player){
-        return player.overlaps(bounds);
+        return player.overlaps(getBounds());
     }
 
     public int getLifePoints() {
