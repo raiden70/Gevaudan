@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
@@ -94,8 +93,6 @@ public class PlayState extends State {
         wolf.update(dt);
         cam.position.x=wolf.getPosition().x+300;// replace 200 by a function with dt to make the wolf move
         text.setPosition(wolf.getPosition().x, 350);
-
-        System.out.println(" ici mov " + wolf.MOVEMENTS);
 
         for (Cloud cloud :obstacleArray)
         {
