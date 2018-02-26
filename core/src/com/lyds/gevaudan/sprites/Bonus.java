@@ -34,7 +34,8 @@ public class Bonus {
         hmap.put(5, "viande.png");
 
         int tab[] = {35, 10, 25, 15, 30, 5};
-        rand_choose = (int)( Math.random()*6);
+        int longueur = tab.length;
+        rand_choose = (int)( Math.random()*longueur);
         value_to_check = tab[rand_choose];
         lifePoints = value_to_check;
         texture_to_check = hmap.get(value_to_check);

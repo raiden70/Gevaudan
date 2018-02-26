@@ -33,7 +33,8 @@ public class Ennemy {
         hmap.put(45,"sanglier.png");
 
         int tab[] = {80, 30, 55, 40, 45};
-        rand_choose = (int)( Math.random()*5);
+        int longueur = tab.length;
+        rand_choose = (int)( Math.random()*longueur);
         value_to_check = tab[rand_choose];
         damage = value_to_check;
         texture_to_check = hmap.get(value_to_check);

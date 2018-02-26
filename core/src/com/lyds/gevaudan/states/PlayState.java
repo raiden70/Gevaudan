@@ -112,7 +112,8 @@ public class PlayState extends State {
                 point_de_vies = String.valueOf(wolf.getLifePoints());
                 text.setText(point_de_vies);
                 if ( wolf.getLifePoints() <= 0){
-                    gsm.set(new PlayState(gsm));
+                    gsm.set(new GameOverState(gsm));
+                    dispose();
                 }
                 ennemy.reposition(ennemy.getPosition().x + ennemy.width() + SPACING_BE*COUNT);
             }
@@ -153,7 +154,6 @@ public class PlayState extends State {
         {
             spriteBatch.draw(cloud.getTexture(), cloud.getPosition().x, cloud.getPosition().y);
         }
-
 
         spriteBatch.draw(ground,gpos1.x,gpos1.y);
         spriteBatch.draw(ground,gpos2.x,gpos2.y);
