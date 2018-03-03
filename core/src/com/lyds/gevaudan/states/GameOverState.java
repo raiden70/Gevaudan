@@ -110,7 +110,7 @@ public class GameOverState extends State {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
         spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
-        spriteBatch.draw(game_over, Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/4 , (Gdx.graphics.getHeight()/2) + diff);
+        spriteBatch.draw(game_over, (Gevaudan.WIDTH/2)-(game_over.getWidth()/2) ,(Gevaudan.HEIGHT)-(game_over.getHeight()));
         spriteBatch.end();
         stage.act();
         stage.draw();
