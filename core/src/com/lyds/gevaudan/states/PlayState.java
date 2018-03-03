@@ -73,16 +73,21 @@ public class PlayState extends State {
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()||(Gdx.input.isKeyPressed(Input.Keys.UP)))
-        {
-            wolf.jump();
+        {   if(wolf.getPosition().y==70)
+                wolf.jump();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || (Gdx.input.getAccelerometerY() > 0))
-        {
+        { if(wolf.MOVEMENTS<800)
             wolf.MOVEMENTS=wolf.MOVEMENTS+10;
+        else
+            wolf.MOVEMENTS=800;
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT) || (Gdx.input.getAccelerometerY() < 0))
         {
-            wolf.MOVEMENTS=wolf.MOVEMENTS-10;
+            if(wolf.MOVEMENTS>300)
+                wolf.MOVEMENTS=wolf.MOVEMENTS-10;
+            else
+                wolf.MOVEMENTS=300;
         }
     }
 
