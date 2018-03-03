@@ -51,7 +51,7 @@ public class PlayState extends State {
         textStyle = new Label.LabelStyle();
         textStyle.font = font;
         text = new Label("", textStyle);
-        text.setFontScale(4f);
+        text.setFontScale(3f);
         text.setText(point_de_vies);
 
         ennemyArray = new Array<Ennemy>();
@@ -97,7 +97,7 @@ public class PlayState extends State {
         updateground();
         wolf.update(dt);
         cam.position.x=wolf.getPosition().x+300;// replace 200 by a function with dt to make the wolf move
-        text.setPosition(wolf.getPosition().x, 350);
+        text.setPosition(wolf.getPosition().x-40, 450);
 
         for (Cloud cloud :obstacleArray)
         {
@@ -145,7 +145,7 @@ public class PlayState extends State {
     spriteBatch.begin();
     spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
     spriteBatch.draw(wolf.getWolf(),wolf.getPosition().x,wolf.getPosition().y);
-    text.draw(spriteBatch, 1);
+
 
         for (Ennemy ennemy: ennemyArray ){
             spriteBatch.draw(ennemy.getTexture(), ennemy.getPosition().x, ennemy.getPosition().y);
@@ -159,7 +159,7 @@ public class PlayState extends State {
         {
             spriteBatch.draw(cloud.getTexture(), cloud.getPosition().x, cloud.getPosition().y);
         }
-
+        text.draw(spriteBatch, 1);
         spriteBatch.draw(ground,gpos1.x,gpos1.y);
         spriteBatch.draw(ground,gpos2.x,gpos2.y);
         spriteBatch.end();
