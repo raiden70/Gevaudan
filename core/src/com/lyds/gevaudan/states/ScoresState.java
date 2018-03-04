@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lyds.gevaudan.Gevaudan;
+import com.lyds.gevaudan.sprites.Wolf;
 
 
 /**
@@ -15,18 +16,20 @@ import com.lyds.gevaudan.Gevaudan;
 public class ScoresState extends State {
 
     private Texture background;
+    private Wolf wolf;
     private int point=0;
     private int score=0;
-    private boolean walk;
-    private Sprite scoreButton;
+   // private Sprite scoreButton;
 
+    //x du loup augmente alors point=+50
+    //lecture de fichier java pour la liste de scores
 
     public ScoresState(GameStateManager gsm) {
 
         super(gsm);
         point=this.point;
         score=this.score;
-        walk=this.walk;
+
 
         background=new Texture("view2.png");
         cam.setToOrtho(false, Gevaudan.WIDTH,Gevaudan.HEIGHT);
@@ -35,7 +38,8 @@ public class ScoresState extends State {
 
     public int Nombre_point(){
 
-        if(walk == true){
+        if(wolf.getPosition().x!=0){
+
             point+=50;
 
         }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.lyds.gevaudan.states.GameStateManager;
+import com.lyds.gevaudan.states.HistoryState;
 import com.lyds.gevaudan.states.MenuState;
 
 public class Gevaudan extends ApplicationAdapter {

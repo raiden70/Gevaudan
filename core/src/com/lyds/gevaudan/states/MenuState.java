@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -26,53 +27,25 @@ import javax.xml.soap.Text;
  * Created by ami on 20/01/2018.
  */
 
-public class MenuState extends State implements InputProcessor{
+public class MenuState extends State implements InputProcessor, Screen{
 
     //private  Skin skin;
    private  Stage stage;
     //private Table table;
 
     private Sprite background;
-   // private TextButton playButton, exitButton;
     private Sprite StartGame;
     private Sprite quitter;
     private Sprite historyButton;
     private Sprite optionsButton;
     private Sprite scoreButton;
-   // private  static  final String TAG = "Lyds";
     private Vector3 touchPoint;
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
 
-        //skin = new Skin(Gdx.files.internal("ui/defaultskin.json"));
         stage = new Stage(viewport);
-        /*table = new Table();
-        table.setWidth(stage.getWidth());
-        table.align(Align.center | Align.top);
-        table.setPosition(0,Gevaudan.HEIGHT);
-*/
-       /* playButton = new TextButton("Jouer",skin);
-        exitButton = new TextButton("Quit Game",skin);
-*/
-       /* playButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("Clicked button","Yep, you did");
-                event.stop();
-            }
-        });*/
 
-
-/*
-
-        table.padTop(5);
-        table.add(playButton).padBottom(5).size(20,10);
-        table.row();
-        table.add(exitButton).size(20,10);
-*/
-
-       // stage.addActor(table);
 
         background =new Sprite(new Texture(Gdx.files.internal("vieww.png")));
         background.setSize(Gevaudan.WIDTH,Gevaudan.HEIGHT);
@@ -113,9 +86,11 @@ public class MenuState extends State implements InputProcessor{
 
         viewport.unproject(touchPoint.set(Gdx.input.getX(),Gdx.input.getY(),0)); //permet de repondre lorsque un bouton est cliqué
         if(historyButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
+            System.out.println("histoire");
             gsm.set(new HistoryState(gsm));
         }
         else if(optionsButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
+            System.out.println("option");
             gsm.set(new OptionsState(gsm));
         }
 
@@ -123,18 +98,47 @@ public class MenuState extends State implements InputProcessor{
             gsm.set(new ScoresState(gsm));
         }
         else if(StartGame.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
+            System.out.println("play");
             gsm.set(new PlayState(gsm));
+
+
         }
         else if(quitter.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
-            gsm.set(new ExitState(gsm));
+            System.out.println("exit");
+            Gdx.app.exit();
         }
 
-
-        gsm.set(new PlayState(gsm));
-        dispose();
     }
 
-       // dispose();
+    }
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void render(float delta) {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
 
     }
 
@@ -174,16 +178,6 @@ public class MenuState extends State implements InputProcessor{
         spriteBatch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-
-        /*spriteBatch.setProjectionMatrix(cam.combined);
-        spriteBatch.begin();
-        spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),0);
-        spriteBatch.draw(playBtn,(Gevaudan.WIDTH/2)-(playBtn.getWidth()/2),Gevaudan.HEIGHT/2);
-        spriteBatch.draw(history,(Gevaudan.WIDTH/8)-(history.getWidth()/8),Gevaudan.HEIGHT/4);
-        spriteBatch.draw(exit,100,158);
-        spriteBatch.draw(options,150,155);
-        spriteBatch.draw(score,145,120);
-        spriteBatch.end();*/
     }
 
 
