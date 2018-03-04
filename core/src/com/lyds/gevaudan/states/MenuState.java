@@ -30,7 +30,7 @@ import javax.xml.soap.Text;
 public class MenuState extends State implements InputProcessor, Screen{
 
     //private  Skin skin;
-   private  Stage stage;
+    private  Stage stage;
     //private Table table;
 
     private Sprite background;
@@ -81,34 +81,34 @@ public class MenuState extends State implements InputProcessor, Screen{
 
     @Override
     public void handleInput() {
-    if (Gdx.input.justTouched())
-    {
+        if (Gdx.input.justTouched())
+        {
 
-        viewport.unproject(touchPoint.set(Gdx.input.getX(),Gdx.input.getY(),0)); //permet de repondre lorsque un bouton est cliqué
-        if(historyButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
-            System.out.println("histoire");
-            gsm.set(new HistoryState(gsm));
-        }
-        else if(optionsButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
-            System.out.println("option");
-            gsm.set(new OptionsState(gsm));
-        }
+            viewport.unproject(touchPoint.set(Gdx.input.getX(),Gdx.input.getY(),0)); //permet de repondre lorsque un bouton est cliqué
+            if(historyButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
+                System.out.println("histoire");
+                gsm.set(new HistoryState(gsm));
+            }
+            else if(optionsButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
+                System.out.println("option");
+                gsm.set(new OptionsState(gsm));
+            }
 
-        else if(scoreButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)) {
-            gsm.set(new ScoresState(gsm));
-        }
-        else if(StartGame.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
-            System.out.println("play");
-            gsm.set(new PlayState(gsm));
+            else if(scoreButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)) {
+                gsm.set(new ScoresState(gsm));
+            }
+            else if(StartGame.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
+                System.out.println("play");
+                gsm.set(new PlayState(gsm));
 
 
-        }
-        else if(quitter.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
-            System.out.println("exit");
-            Gdx.app.exit();
-        }
+            }
+            else if(quitter.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
+                System.out.println("exit");
+                Gdx.app.exit();
+            }
 
-    }
+        }
 
     }
 
