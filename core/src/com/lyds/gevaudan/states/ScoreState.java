@@ -1,17 +1,17 @@
 package com.lyds.gevaudan.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.lyds.gevaudan.Gevaudan;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class ScoreState extends State {
     private Stage stage;
     private Texture background;
     private Texture score_title;
-    private TextButton[] buttons;
+    private ImageButton button0;
     private ArrayList<String> scores;
     private ArrayList<Integer> scores_integer;
     private ArrayList<Label> text;
@@ -41,25 +41,10 @@ public class ScoreState extends State {
         scores_integer = new ArrayList<Integer>();
         scores_integer = score;
 
-        Pixmap pixmap = new Pixmap((int)Gdx.graphics.getWidth()/4,(int)Gdx.graphics.getHeight()/10, Pixmap.Format.RGB888);
-        pixmap.setColor(Color.WHITE);
-        pixmap.fill();
-        buttons = new TextButton[4];
         background = new Texture("background1.png");
         score_title = new Texture("Star.png");
         cam.setToOrtho(false, Gevaudan.WIDTH,Gevaudan.HEIGHT);
-        BitmapFont font = new BitmapFont();
-        skin = new Skin();
-        skin.add("default", font);
-        skin.add("background",new Texture(pixmap));
 
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.up = skin.newDrawable("background", Color.GRAY);
-        textButtonStyle.down = skin.newDrawable("background", Color.DARK_GRAY);
-        textButtonStyle.checked = skin.newDrawable("background", Color.DARK_GRAY);
-        textButtonStyle.over = skin.newDrawable("background", Color.LIGHT_GRAY);
-        textButtonStyle.font = skin.getFont("default");
-        skin.add("default", textButtonStyle);
         create_stage();
         init_score();
     }
@@ -68,9 +53,13 @@ public class ScoreState extends State {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
-        buttons[0] = new TextButton("MENU", skin);
-        buttons[0].setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight()/8)  );
-        stage.addActor(buttons[0]);
+        Texture myTexture0 = new Texture(Gdx.files.internal("menu_boutton.png"));
+        TextureRegion myTextureRegion0 = new TextureRegion(myTexture0);
+        TextureRegionDrawable myTexRegionDrawable0 = new TextureRegionDrawable(myTextureRegion0);
+        button0 = new ImageButton(myTexRegionDrawable0);
+
+        button0.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , 0  );
+        stage.addActor(button0);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -108,10 +97,10 @@ public class ScoreState extends State {
     public void update(float dt) {
         handleInput();
 
-        buttons[0].addListener(new EventListener() {
+        button0.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
-                if ( buttons[0].isPressed()){
+                if ( button0.isPressed()){
                     gsm.set(new MenuState(gsm));
                 }
                 return true;
@@ -124,8 +113,7 @@ public class ScoreState extends State {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
         spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
-        spriteBatch.draw(score_title, (Gevaudan.WIDTH/2)-(score_title.getWidth()/2) ,(Gevaudan.HEIGHT)-(score_title.getHeight()));//
-        buttons[0].setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight()/8) - 30);
+        spriteBatch.draw(score_title, (Gevaudan.WIDTH/2)-(score_title.getWidth()/2) ,(Gevaudan.HEIGHT)-(score_title.getHeight()));
 
         text.get(0).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight()/2) );
         text.get(0).draw(spriteBatch, 1);

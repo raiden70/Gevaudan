@@ -102,6 +102,17 @@ public class MenuState extends State {
     public void update(float dt) {
         handleInput();
 
+        button_histoire.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+
+                if (button_histoire.isPressed()){
+                    gsm.set(new HistoryState(gsm));
+                }
+                return true;
+            }
+        });
+
         button_play.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {

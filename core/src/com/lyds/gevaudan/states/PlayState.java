@@ -109,6 +109,14 @@ public class PlayState extends State {
         updateground();
         wolf.update(dt);
 
+        for (Bonus bonus:bonusArray) {
+            bonus.update(dt);
+        }
+
+        for (Ennemy ennemy:ennemyArray) {
+            ennemy.update(dt);
+        }
+
         cam.position.x=wolf.getPosition().x+300;// replace 200 by a function with dt to make the wolf move
         barre_points_vie.setPositionX((int)wolf.getPosition().x-80);
         text.setPosition(wolf.getPosition().x  + 540, 390);
@@ -173,11 +181,11 @@ public class PlayState extends State {
         spriteBatch.draw(score_title, barre_points_vie.getPosition().x + 490 ,barre_points_vie.getPosition().y - 110 );
 
         for (Ennemy ennemy: ennemyArray ){
-            spriteBatch.draw(ennemy.getTexture(), ennemy.getPosition().x, ennemy.getPosition().y);
+            spriteBatch.draw(ennemy.getEnnemy(), ennemy.getPosition().x, ennemy.getPosition().y);
         }
 
         for (Bonus bonus: bonusArray ){
-            spriteBatch.draw(bonus.getTexture(), bonus.getPosition().x, bonus.getPosition().y);
+            spriteBatch.draw(bonus.getBonus(), bonus.getPosition().x, bonus.getPosition().y);
         }
 
         for (Cloud cloud :obstacleArray)
