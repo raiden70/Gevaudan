@@ -1,223 +1,217 @@
 package com.lyds.gevaudan.states;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.lyds.gevaudan.Gevaudan;
 
-import javax.xml.soap.Text;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
- * Created by ami on 20/01/2018.
+ * Created by Sacha on 25/02/2018.
  */
 
-public class MenuState extends State implements InputProcessor, Screen{
+public class MenuState extends State {
 
-    //private  Skin skin;
-    private  Stage stage;
-    //private Table table;
+    private Stage stage;
+    private Texture background;
+    private Texture menu_title;
+    private ImageButton button_options;
+    private ImageButton button_scores;
+    private ImageButton button_histoire;
+    private ImageButton button_play;
+    private ImageButton button_quitter;
+    private ArrayList<Integer> scores_to_display;
+    private ArrayList<Integer> scores;
 
-    private Sprite background;
-    private Sprite StartGame;
-    private Sprite quitter;
-    private Sprite historyButton;
-    private Sprite optionsButton;
-    private Sprite scoreButton;
-    private Vector3 touchPoint;
+    private boolean one;
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
 
-        stage = new Stage(viewport);
-
-
-        background =new Sprite(new Texture(Gdx.files.internal("vieww.png")));
-        background.setSize(Gevaudan.WIDTH,Gevaudan.HEIGHT);
-        background.setPosition(0,0);
-        touchPoint= new Vector3();
-
-        /*InputMultiplexer im = new InputMultiplexer(stage,this);
-        Gdx.input.setInputProcessor(im);*/
-
-        StartGame = new Sprite(new Texture("play-button.png"));
-        quitter = new Sprite(new Texture("exit.png"));
-
-        historyButton = new Sprite(new Texture("history.png"));
-        optionsButton = new Sprite(new Texture("option.png"));
-        scoreButton = new Sprite(new Texture("scores.png"));
-
-        historyButton.setSize(30,20);
-        optionsButton.setSize(30,20);
-        scoreButton.setSize(30,20);
-
-        StartGame.setSize(30,20);
-        quitter.setSize(30,20);
-
-        historyButton.setPosition(Gevaudan.WIDTH/2-historyButton.getWidth()/2,Gevaudan.HEIGHT/2-historyButton.getHeight()/2);
-        optionsButton.setPosition(Gevaudan.WIDTH/2-historyButton.getWidth()/2,historyButton.getY()-optionsButton.getHeight()-2);
-        StartGame.setPosition(Gevaudan.WIDTH/2-optionsButton.getWidth()/2, optionsButton.getY()-StartGame.getHeight()-2);
-        quitter.setPosition(Gevaudan.WIDTH/2-StartGame.getWidth()/2,StartGame.getY()-quitter.getHeight()-2);
-        scoreButton.setPosition(quitter.getX(),quitter.getY()-historyButton.getHeight()-2);
-
+        scores = new ArrayList<Integer>();
+        scores_to_display = new ArrayList<Integer>();
+        background = new Texture("background1.png");
+        menu_title = new Texture("menu_title.png");
+        cam.setToOrtho(false, Gevaudan.WIDTH,Gevaudan.HEIGHT);
+        create_stage();
     }
 
+    public void create_stage(){
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
 
+        Texture histoire_Texture = new Texture(Gdx.files.internal("histoire.png"));
+        TextureRegion histoire_TextureRegion = new TextureRegion(histoire_Texture);
+        TextureRegionDrawable histoire_Drawable = new TextureRegionDrawable(histoire_TextureRegion);
+        button_histoire = new ImageButton(histoire_Drawable);
+
+        Texture scores_Texture = new Texture(Gdx.files.internal("buttons-scores.png"));
+        TextureRegion scores_TextureRegion = new TextureRegion(scores_Texture);
+        TextureRegionDrawable scores_Drawable = new TextureRegionDrawable(scores_TextureRegion);
+        button_scores = new ImageButton(scores_Drawable);
+
+        Texture options_Texture = new Texture(Gdx.files.internal("buttons-options.png"));
+        TextureRegion options_TextureRegion = new TextureRegion(options_Texture);
+        TextureRegionDrawable options_Drawable = new TextureRegionDrawable(options_TextureRegion);
+        button_options = new ImageButton(options_Drawable);
+
+        Texture quitter_Texture = new Texture(Gdx.files.internal("buttons-exit.png"));
+        TextureRegion quitter_TextureRegion = new TextureRegion(quitter_Texture);
+        TextureRegionDrawable quitter_Drawable = new TextureRegionDrawable(quitter_TextureRegion);
+        button_quitter = new ImageButton(quitter_Drawable);
+
+        Texture play_Texture = new Texture(Gdx.files.internal("buttons-play.png"));
+        TextureRegion play_TextureRegion = new TextureRegion(play_Texture);
+        TextureRegionDrawable play_Drawable = new TextureRegionDrawable(play_TextureRegion);
+        button_play = new ImageButton(play_Drawable);
+
+        int diff2 = (Gdx.graphics.getHeight()) - (Gdx.graphics.getHeight()/9);
+        int diff1 = (Gdx.graphics.getHeight()/4) - (Gdx.graphics.getHeight()/8);
+        int computed = (Gdx.graphics.getHeight()/2) - diff1;
+        button_quitter.setPosition( diff2,(Gdx.graphics.getHeight()/8) - 25 );
+        button_options.setPosition( diff2,(Gdx.graphics.getHeight()/4) - 25 );
+        button_scores.setPosition( diff2,computed - 25);
+        button_histoire.setPosition( diff2,(Gdx.graphics.getHeight()/2) - 25 );
+        button_play.setPosition((Gdx.graphics.getHeight() - Gdx.graphics.getWidth()/3) , computed - 25  );
+
+        stage.addActor(button_histoire);
+        stage.addActor(button_options);
+        stage.addActor(button_play);
+        stage.addActor(button_quitter);
+        stage.addActor(button_scores);
+        Gdx.input.setInputProcessor(stage);
+    }
 
     @Override
     public void handleInput() {
-        if (Gdx.input.justTouched())
-        {
-
-            viewport.unproject(touchPoint.set(Gdx.input.getX(),Gdx.input.getY(),0)); //permet de repondre lorsque un bouton est cliqué
-            if(historyButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
-                System.out.println("histoire");
-                gsm.set(new HistoryState(gsm));
-            }
-            else if(optionsButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
-                System.out.println("option");
-                gsm.set(new OptionsState(gsm));
-            }
-
-            else if(scoreButton.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)) {
-                gsm.set(new ScoresState(gsm));
-            }
-            else if(StartGame.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
-                System.out.println("play");
-                gsm.set(new PlayState(gsm));
-
-
-            }
-            else if(quitter.getBoundingRectangle().contains(touchPoint.x,touchPoint.y)){
-                System.out.println("exit");
-                Gdx.app.exit();
-            }
-
-        }
-
-    }
-
-    @Override
-    public void show() {
-
-    }
-
-    @Override
-    public void render(float delta) {
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose(){
-
-        historyButton.getTexture().dispose();
-        optionsButton.getTexture().dispose();
-        scoreButton.getTexture().dispose();
-        StartGame.getTexture();
-        quitter.getTexture();
-
 
     }
 
     @Override
     public void update(float dt) {
-
         handleInput();
+
+        button_play.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+
+                if (button_play.isPressed()){
+                    gsm.set(new PlayState(gsm));
+                    dispose();
+                }
+                return true;
+            }
+        });
+
+        button_quitter.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+
+                if (button_quitter.isPressed()){
+                    Gdx.app.exit();
+                }
+                return true;
+            }
+        });
+
+        button_scores.addListener(new EventListener() {
+            @Override
+            public boolean handle(Event event) {
+                if (button_scores.isPressed()){
+                    try{
+                        if (!one) {
+                            save_score();
+                            update_best_score();
+                            gsm.set(new ScoreState(gsm, scores_to_display));
+                            one = true;
+                        }
+                    }catch (Exception e){
+                        return true;
+                    }
+                }
+                return true;
+            }
+        });
+
+        cam.update();
     }
 
-
-
-
     @Override
-    //zone de dessin des images en definissant leur emplacement sur l'écran
     public void render(SpriteBatch spriteBatch) {
-
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
-        background.draw(spriteBatch);
-        historyButton.draw(spriteBatch);
-        optionsButton.draw(spriteBatch);
-        scoreButton.draw(spriteBatch);
-        StartGame.draw(spriteBatch);
-        quitter.draw(spriteBatch);
+        spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
+        spriteBatch.draw(menu_title, (Gevaudan.WIDTH/2)-(menu_title.getWidth()/2) ,(Gevaudan.HEIGHT)-(menu_title.getHeight()));
         spriteBatch.end();
-        stage.act(Gdx.graphics.getDeltaTime());
+        stage.act();
         stage.draw();
     }
 
-
     @Override
-    public boolean keyDown(int keycode) {
-        return false;
+    public void dispose() {
+        background.dispose();
+        menu_title.dispose();
+        stage.dispose();
     }
 
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
+    public void save_score()throws IOException {
+        int score;
+        try {
+            File f = new File("resultat.txt");
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+
+            try {
+                String line = br.readLine();
+
+                while (line != null) {
+                    score = Integer.parseInt(line);
+                    if (!scores.contains(score)) {
+                        scores.add(score);
+                    }
+                    line = br.readLine();
+                }
+                br.close();
+                fr.close();
+            } catch (IOException exception) {
+                System.out.println("Erreur lors de la lecture : " + exception.getMessage());
+            }
+        }catch (Exception e){
+            System.out.println("Error file");
+        }
     }
 
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
+    public void update_best_score(){
+        /** l'attribut scores_to_show
+         * va recevoir les 10 meilleurs scores
+         */
+        int max = 0;
+        int taille = scores.size();
+        int i = 0, j;
+        for(j = 0; j < 10; j++){
+            if (!(scores_to_display.size() >= 10)) {
+                while (i < taille) {
+                    if (max < scores.get(i) && !scores_to_display.contains(scores.get(i))) {
+                        max = scores.get(i);
+                    }
+                    i++;
+                }
+                scores_to_display.add(max);
+                max = 0;
+                i = 0;
+            }
+        }
     }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
 }

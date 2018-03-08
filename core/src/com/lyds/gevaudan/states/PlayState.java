@@ -9,12 +9,13 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 import com.lyds.gevaudan.Gevaudan;
-import com.lyds.gevaudan.sprites.Wolf;
 import com.lyds.gevaudan.sprites.Bonus;
-import com.lyds.gevaudan.sprites.Ennemy;
-import java.util.Random;
 import com.lyds.gevaudan.sprites.Cloud;
+import com.lyds.gevaudan.sprites.Ennemy;
+import com.lyds.gevaudan.sprites.LifePoints;
+import com.lyds.gevaudan.sprites.Wolf;
 
+import java.util.Random;
 
 /**
  * Created by ami on 25/01/2018.
@@ -22,26 +23,25 @@ import com.lyds.gevaudan.sprites.Cloud;
 
 
 public class PlayState extends State {
-
     private static final int SPACING_BE = 2000;
-    private static final int SPACING = 150;
+    private static final int SPACING=150;
     private static final int COUNT = 10;
-    private static final int COUNT_OBSTCLE = 6;
+    private static final int COUNT_OBSTCLE=6;
     private Array<Ennemy> ennemyArray;
     private Array<Bonus> bonusArray;
     private Array<Cloud> obstacleArray;
     private Wolf wolf;
     private Texture background;
     private Texture ground;
-    private Vector2 gpos1, gpos2;
+    private Vector2 gpos1,gpos2;
     private Label text;
+    private Texture score_title;
     private String point_de_vies;
+    private LifePoints barre_points_vie;
+    private String score_final;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
-        wolf = new Wolf(100, 100);
-        background = new Texture("view2.png");
-        cam.setToOrtho(false, Gevaudan.WIDTH, Gevaudan.HEIGHT);
         Random rand;
         wolf = new Wolf(100, 70);
         background = new Texture("background1.png");
@@ -50,6 +50,9 @@ public class PlayState extends State {
         gpos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, 0);
         gpos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), 0);
         point_de_vies = String.valueOf(wolf.getLifePoints());
+        score_final = "O";
+        barre_points_vie = new LifePoints();
+        score_title = new Texture("score-title.png");
 
         BitmapFont font = new BitmapFont();
         Label.LabelStyle textStyle;
@@ -77,62 +80,82 @@ public class PlayState extends State {
 
     @Override
     public void handleInput() {
-        if (Gdx.input.justTouched() || (Gdx.input.isKeyPressed(Input.Keys.UP))) {
-            if (wolf.getPosition().y == 70)
-                wolf.jump();
+        if (Gdx.input.justTouched()||(Gdx.input.isKeyPressed(Input.Keys.UP)))
+        {   if(wolf.getPosition().y==70)
+            wolf.jump();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || (Gdx.input.getAccelerometerY() > 0)) {
-            if (wolf.MOVEMENTS < 800)
-                wolf.MOVEMENTS = wolf.MOVEMENTS + 10;
-            else
-                wolf.MOVEMENTS = 800;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || (Gdx.input.getAccelerometerY() > 0))
+        { if(wolf.MOVEMENTS<800)
+            wolf.MOVEMENTS=wolf.MOVEMENTS+10;
+        else
+            wolf.MOVEMENTS=800;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || (Gdx.input.getAccelerometerY() < 0)) {
-            if (wolf.MOVEMENTS > 300)
-                wolf.MOVEMENTS = wolf.MOVEMENTS - 10;
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) || (Gdx.input.getAccelerometerY() < 0))
+        {
+            if(wolf.MOVEMENTS>300)
+                wolf.MOVEMENTS=wolf.MOVEMENTS-10;
             else
-                wolf.MOVEMENTS = 300;
+                wolf.MOVEMENTS=300;
         }
     }
 
     @Override
     public void update(float dt) {
+        int pv;
+        int distance = (int)wolf.getPosition().x - 100;
+        int score = 0;
+        Texture texture;
         handleInput();
-        wolf.update(dt);
         updateground();
         wolf.update(dt);
-        cam.position.x = wolf.getPosition().x + 300;// replace 200 by a function with dt to make the wolf move
-        text.setPosition(wolf.getPosition().x - 40, 450);
 
-        for (Cloud cloud : obstacleArray) {
-            if (cam.position.x - (cam.viewportWidth / 2) > cloud.getPosition().x + cloud.width()) {
-                cloud.reposition(cloud.getPosition().x + cloud.width() + (SPACING * COUNT_OBSTCLE));
+        cam.position.x=wolf.getPosition().x+300;// replace 200 by a function with dt to make the wolf move
+        barre_points_vie.setPositionX((int)wolf.getPosition().x-80);
+        text.setPosition(wolf.getPosition().x  + 540, 390);
+
+        score = score + (distance/40);
+        score_final = String.valueOf(score);
+        text.setText(score_final);
+
+        for (Cloud cloud :obstacleArray)
+        {
+            if(cam.position.x-(cam.viewportWidth/2)> cloud.getPosition().x+ cloud.width())
+            {
+                cloud.reposition(cloud.getPosition().x+ cloud.width()+(SPACING*COUNT_OBSTCLE));
             }
         }
 
-        for (Ennemy ennemy : ennemyArray) {
-            if (cam.position.x - (cam.viewportWidth / 2) > ennemy.getPosition().x + ennemy.width()) {
-                ennemy.reposition(ennemy.getPosition().x + ennemy.width() + SPACING_BE * COUNT);
+        for (Ennemy ennemy :ennemyArray){
+            if ( cam.position.x-(cam.viewportWidth/2)> ennemy.getPosition().x + ennemy.width())
+            {
+                ennemy.reposition(ennemy.getPosition().x + ennemy.width() + SPACING_BE*COUNT);
             }
-            if (ennemy.collides(wolf.getWolf_bounds())) {
+            if (ennemy.collides(wolf.getWolf_bounds())){
                 wolf.update_ennemy_lifePoints(ennemy.getDamage());
                 point_de_vies = String.valueOf(wolf.getLifePoints());
+                pv = Integer.parseInt(point_de_vies);
+                texture = barre_points_vie.check_lifePoints(pv);
+                barre_points_vie.setTexture(texture);
                 text.setText(point_de_vies);
-                if (wolf.getLifePoints() <= 0) {
-                    gsm.set(new GameOverState(gsm));
+                if ( wolf.getLifePoints() <= 0){
+                    gsm.set(new GameOverState(gsm, score_final));
                     dispose();
                 }
-                ennemy.reposition(ennemy.getPosition().x + ennemy.width() + SPACING_BE * COUNT);
+                ennemy.reposition(ennemy.getPosition().x + ennemy.width() + SPACING_BE*COUNT);
             }
         }
 
-        for (Bonus bonus : bonusArray) {
-            if (cam.position.x - (cam.viewportWidth / 2) > bonus.getPosition().x + bonus.width()) {
-                bonus.reposition(bonus.getPosition().x + bonus.width() + SPACING_BE * COUNT);
+        for (Bonus bonus :bonusArray){
+            if ( cam.position.x-(cam.viewportWidth/2)> bonus.getPosition().x + bonus.width())
+            {
+                bonus.reposition(bonus.getPosition().x + bonus.width() + SPACING_BE*COUNT);
             }
             if (bonus.collides(wolf.getWolf_bounds())) {
                 wolf.update_bonus_lifePoints(bonus.getLifePoints());
                 point_de_vies = String.valueOf(wolf.getLifePoints());
+                pv = Integer.parseInt(point_de_vies);
+                texture = barre_points_vie.check_lifePoints(pv);
+                barre_points_vie.setTexture(texture);
                 text.setText(point_de_vies);
                 bonus.reposition(bonus.getPosition().x + bonus.width() + SPACING_BE * COUNT);
             }
@@ -144,43 +167,40 @@ public class PlayState extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
-        spriteBatch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
-        spriteBatch.draw(wolf.getWolf(), wolf.getPosition().x, wolf.getPosition().y);
-        spriteBatch.setProjectionMatrix(cam.combined);
-        spriteBatch.begin();
-        spriteBatch.draw(background, cam.position.x - (cam.viewportWidth / 2), cam.position.y - (cam.viewportHeight / 2) - 1);
-        spriteBatch.draw(wolf.getWolf(), wolf.getPosition().x, wolf.getPosition().y);
+        spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
+        spriteBatch.draw(wolf.getWolf(),wolf.getPosition().x,wolf.getPosition().y);
+        spriteBatch.draw(barre_points_vie.getTexture(), barre_points_vie.getPosition().x, barre_points_vie.getPosition().y);
+        spriteBatch.draw(score_title, barre_points_vie.getPosition().x + 490 ,barre_points_vie.getPosition().y - 110 );
 
-
-        for (Ennemy ennemy : ennemyArray) {
+        for (Ennemy ennemy: ennemyArray ){
             spriteBatch.draw(ennemy.getTexture(), ennemy.getPosition().x, ennemy.getPosition().y);
         }
 
-        for (Bonus bonus : bonusArray) {
+        for (Bonus bonus: bonusArray ){
             spriteBatch.draw(bonus.getTexture(), bonus.getPosition().x, bonus.getPosition().y);
         }
 
-        for (Cloud cloud : obstacleArray) {
+        for (Cloud cloud :obstacleArray)
+        {
             spriteBatch.draw(cloud.getTexture(), cloud.getPosition().x, cloud.getPosition().y);
         }
         text.draw(spriteBatch, 1);
-        spriteBatch.draw(ground, gpos1.x, gpos1.y);
-        spriteBatch.draw(ground, gpos2.x, gpos2.y);
+        spriteBatch.draw(ground,gpos1.x,gpos1.y);
+        spriteBatch.draw(ground,gpos2.x,gpos2.y);
         spriteBatch.end();
     }
 
     @Override
-    public void dispose() {
+    public void dispose()
+    {
 
     }
-
-
-    private void updateground() {
-        if (cam.position.x - (cam.viewportWidth / 2) > gpos1.x + ground.getWidth())
-            gpos1.add(ground.getWidth() * 2, 0);
-        if (cam.position.x - (cam.viewportWidth / 2) > gpos2.x + ground.getWidth())
-            gpos2.add(ground.getWidth() * 2, 0);
+    private void updateground()
+    {
+        if(cam.position.x-(cam.viewportWidth/2)>gpos1.x+ground.getWidth())
+            gpos1.add(ground.getWidth()*2,0);
+        if(cam.position.x-(cam.viewportWidth/2)>gpos2.x+ground.getWidth())
+            gpos2.add(ground.getWidth()*2,0);
     }
-
 }
 

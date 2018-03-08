@@ -26,8 +26,8 @@ public class Wolf {
     {
         position=new Vector3(x,y,0);
         velocity=new Vector3(0,0,0);
-        lifePoints = 1000;
-       // wolf=new Texture("wolf1.png");
+        lifePoints = 100;
+        // wolf=new Texture("wolf1.png");
         Texture texture=new Texture("wolfanime.png");
         wolf = texture;
         wolfAnim=new Animation(new TextureRegion(texture),5,0.5f );
@@ -62,7 +62,7 @@ public class Wolf {
     public void update_ennemy_lifePoints(int damage){
         int degat = 0, new_lifePoints;
         //Gestion des points de vies
-        degat = (damage* 1000) / 100;
+        degat = (damage* 100) / 100;
         new_lifePoints = getLifePoints() - degat;
         setLifePoints(new_lifePoints);
     }
@@ -70,15 +70,15 @@ public class Wolf {
     public void update_bonus_lifePoints(int bonus_points) {
         int b_points = 0, new_lifePoints;
 
-        if (getLifePoints() == 1000) {
+        if (getLifePoints() == 100) {
             return;
         } else {
             //Gestion des points de vies
-            b_points = (bonus_points * 1000) / 100;
+            b_points = (bonus_points * 100) / 100;
             new_lifePoints = getLifePoints() + b_points;
 
-            if (new_lifePoints >= 1000) {
-                new_lifePoints = 1000;
+            if (new_lifePoints >= 100) {
+                new_lifePoints = 100;
             }
             setLifePoints(new_lifePoints);
         }
@@ -95,7 +95,7 @@ public class Wolf {
     }
     public void jump()
     {
-        velocity.y=(300);
+        velocity.y=(630);
     }
     public Rectangle getWolf_bounds(){
         return wolf_bounds;
