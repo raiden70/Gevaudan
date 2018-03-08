@@ -1,13 +1,16 @@
 package com.lyds.gevaudan.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.lyds.gevaudan.Gevaudan;
 
@@ -35,11 +38,33 @@ public class GameOverState extends State {
     private ArrayList<Integer> scores_to_comp;
     private ArrayList<Integer> scores_to_display;
     private Integer score_to_add;
+    private Label text;
+    private Label text1;
 
     private boolean one;
 
     protected GameOverState(GameStateManager gsm, String new_score) {
         super(gsm);
+
+        BitmapFont font = new BitmapFont();
+        Color color = Color.RED;
+        Label.LabelStyle textStyle;
+        textStyle = new Label.LabelStyle();
+        textStyle.font = font;
+        textStyle.fontColor = color;
+        text = new Label("", textStyle);
+        text.setFontScale(3f);
+        text.setText(new_score);
+
+        BitmapFont font1 = new BitmapFont();
+        Label.LabelStyle textStyle1;
+        textStyle1 = new Label.LabelStyle();
+        textStyle1.font = font1;
+        textStyle1.fontColor = color;
+        text1 = new Label("", textStyle1);
+        text1.setFontScale(2f);
+        String texte_written = "Voici votre score";
+        text1.setText(texte_written);
 
         one = false;
         score_to_add = Integer.valueOf(new_score);
@@ -84,11 +109,15 @@ public class GameOverState extends State {
         button1.setPosition((Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8), (Gdx.graphics.getHeight()/4) - 25 );
         button0.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , computed - 25);
         button2.setPosition((Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8) + 25 , (Gdx.graphics.getHeight()/2) - 25 );
+        text1.setPosition((Gdx.graphics.getWidth()/12), (Gdx.graphics.getHeight()/2) - 10);
+        text.setPosition((Gdx.graphics.getWidth()/8), (Gdx.graphics.getHeight()/3));
 
         stage.addActor(button0);
         stage.addActor(button1);
         stage.addActor(button2);
         stage.addActor(button3);
+        stage.addActor(text);
+        stage.addActor(text1);
         Gdx.input.setInputProcessor(stage);
     }
 
