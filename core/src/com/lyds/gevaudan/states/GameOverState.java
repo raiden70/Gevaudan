@@ -103,12 +103,12 @@ public class GameOverState extends State {
         TextureRegionDrawable myTexRegionDrawable3 = new TextureRegionDrawable(myTextureRegion3);
         button3 = new ImageButton(myTexRegionDrawable3);
 
-        int diff1 = (Gdx.graphics.getHeight()/4) - (Gdx.graphics.getHeight()/8);
-        int computed = (Gdx.graphics.getHeight()/2) - diff1;
-        button3.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight()/8) - 25 );
-        button1.setPosition((Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8), (Gdx.graphics.getHeight()/4) - 25 );
-        button0.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , computed - 25);
-        button2.setPosition((Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8) + 25 , (Gdx.graphics.getHeight()/2) - 25 );
+        button3.setPosition(Gdx.graphics.getWidth()/2 - button3.getWidth()/2 , (Gevaudan.HEIGHT)/6 - button3.getHeight());
+        button1.setPosition((Gdx.graphics.getWidth()/2 -  button1.getWidth()/2), 2*(Gevaudan.HEIGHT)/5 - 2*button1.getHeight());
+        button0.setPosition(Gdx.graphics.getWidth()/2 - button0.getWidth()/2 , 2*(Gevaudan.HEIGHT)/2 - 25*button0.getHeight()/4);
+
+        button2.setPosition((Gdx.graphics.getWidth()/2 - button2.getWidth()/2) , 2*(Gevaudan.HEIGHT)/3 - 2*button1.getHeight());
+
         text1.setPosition((Gdx.graphics.getWidth()/12), (Gdx.graphics.getHeight()/2) - 10);
         text.setPosition((Gdx.graphics.getWidth()/8), (Gdx.graphics.getHeight()/3));
 

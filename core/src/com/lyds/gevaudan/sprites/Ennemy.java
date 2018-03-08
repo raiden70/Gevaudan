@@ -28,16 +28,16 @@ public class Ennemy {
         HashMap<Integer, String> hmap = new HashMap<Integer, String>();
 
         /* We add the elements to the HashMap */
-        hmap.put(80,"bear.png");
-        hmap.put(30, "badger.png");
+        /*hmap.put(80,"bear.png");
+        hmap.put(30, "badger.png");*/
         hmap.put(15, "aranea.png");
         hmap.put(25, "bat.png");
         //hmap.put(55, "renard.png");
         hmap.put(40, "aigle.png");
         //hmap.put(45,"sanglier.png");
 
-        int tab[] = {80, 30, 15, 25, /*55,*/ 40/*, 45*/};
-        rand_choose = (int)( Math.random()*5);
+        int tab[] = {/*80, 30,*/ 15, 25, /*55,*/ 40/*, 45*/};
+        rand_choose = (int)( Math.random()*3);
         value_to_check = tab[rand_choose];
         damage = value_to_check;
         texture_to_check = hmap.get(value_to_check);
@@ -76,7 +76,7 @@ public class Ennemy {
     }
 
     public void reposition(float x){
-        position.set(x, 15);
+        position.set(x, 65);
         bounds.setPosition(position.x, position.y);
     }
 

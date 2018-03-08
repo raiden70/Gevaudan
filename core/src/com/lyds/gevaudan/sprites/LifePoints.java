@@ -11,7 +11,7 @@ import javax.swing.JFrame;
  * Created by Sacha on 05/03/2018.
  */
 
-public class LifePoints extends JFrame {
+public class LifePoints {
 
     private Vector2 position;
     private Texture texture;
@@ -124,10 +124,6 @@ public class LifePoints extends JFrame {
     }
 
     public Texture getTexture() {
-        //String texture_to_check;
-        //check_lifePoints(pv);
-        //texture_to_check = barre_points_vie.get(pv).toString();
-        //texture = new Texture(texture_to_check);
         return texture;
     }
 }
