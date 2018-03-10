@@ -177,8 +177,7 @@ public class PlayState extends State {
         spriteBatch.begin();
         spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
         spriteBatch.draw(wolf.getWolf(),wolf.getPosition().x,wolf.getPosition().y);
-        spriteBatch.draw(barre_points_vie.getTexture(), barre_points_vie.getPosition().x, barre_points_vie.getPosition().y);
-        spriteBatch.draw(score_title, barre_points_vie.getPosition().x + 490 ,barre_points_vie.getPosition().y - 110 );
+
 
         for (Ennemy ennemy: ennemyArray ){
             spriteBatch.draw(ennemy.getEnnemy(), ennemy.getPosition().x, ennemy.getPosition().y);
@@ -192,6 +191,8 @@ public class PlayState extends State {
         {
             spriteBatch.draw(cloud.getTexture(), cloud.getPosition().x, cloud.getPosition().y);
         }
+        spriteBatch.draw(barre_points_vie.getTexture(), barre_points_vie.getPosition().x, barre_points_vie.getPosition().y);
+        spriteBatch.draw(score_title, barre_points_vie.getPosition().x + 490 ,barre_points_vie.getPosition().y - 110 );
         text.draw(spriteBatch, 1);
         spriteBatch.draw(ground,gpos1.x,gpos1.y);
         spriteBatch.draw(ground,gpos2.x,gpos2.y);
