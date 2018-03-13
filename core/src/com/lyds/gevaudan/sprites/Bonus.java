@@ -27,7 +27,7 @@ public class Bonus {
     public Bonus(float x){
         int rand_choose;
         int value_to_check;
-        int y = 65;
+        int y = 72;
         String texture_to_check;
         /* We declare a HashMap to set the damage corresponding to the texture of an ennemy*/
         HashMap<Integer, String> hmap = new HashMap<Integer, String>();
@@ -51,19 +51,22 @@ public class Bonus {
 
         if ( value_to_check == 30) {
             textureAnime = new Animation(new TextureRegion(texture), 3, 0.5f);
+            bounds = new Rectangle(x, y, 1, 6);
         }
         else if ( value_to_check == 15) {
             textureAnime = new Animation(new TextureRegion(texture), 8, 0.5f);
+            bounds = new Rectangle(x, y, 1, 6);
         }
 
         else if ( value_to_check == 25) {
             textureAnime = new Animation(new TextureRegion(texture), 10, 0.5f);
+            bounds = new Rectangle(x, y, 1, 6);
         }
         else{
             textureAnime = new Animation(new TextureRegion(texture), 1, 0.5f);
+            bounds = new Rectangle(x, y, getBonus().getTexture().getWidth(), getBonus().getTexture().getHeight());
         }
         position = new Vector2(x , y);
-        bounds = new Rectangle(x, y, getBonus().getTexture().getWidth(), getBonus().getTexture().getHeight());
     }
 
     public void update(float dt) {
@@ -83,7 +86,7 @@ public class Bonus {
     }
 
     public void reposition(float x){
-        position.set(x, 0);
+        position.set(x, 72);
         bounds.setPosition(position.x, position.y);
     }
 

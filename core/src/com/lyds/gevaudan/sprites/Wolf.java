@@ -95,7 +95,7 @@ public class Wolf {
     }
     public void jump()
     {
-        velocity.y=(485);
+        velocity.y=(600);
     }
     public Rectangle getWolf_bounds(){
         return wolf_bounds;

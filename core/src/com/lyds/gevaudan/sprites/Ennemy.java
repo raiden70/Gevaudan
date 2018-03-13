@@ -22,7 +22,7 @@ public class Ennemy {
     public Ennemy(float x){
         int rand_choose;
         int value_to_check;
-        int y = 65;
+        int y = 72;
         String texture_to_check;
         /* We declare a HashMap to set the damage corresponding to the texture of an ennemy*/
         HashMap<Integer, String> hmap = new HashMap<Integer, String>();
@@ -32,12 +32,13 @@ public class Ennemy {
         hmap.put(30, "badger.png");*/
         hmap.put(15, "aranea.png");
         hmap.put(25, "bat.png");
+        hmap.put(55, "foxy2.png");
         //hmap.put(55, "renard.png");
-        hmap.put(40, "aigle.png");
-        //hmap.put(45,"sanglier.png");
+        hmap.put(40, "aigle_fixe.png");
+        hmap.put(45,"sanglier.png");
 
-        int tab[] = {/*80, 30,*/ 15, 25, /*55,*/ 40/*, 45*/};
-        rand_choose = (int)( Math.random()*3);
+        int tab[] = {/*80, 30,*/ 15, 25, 55, 40, 45};
+        rand_choose = (int)( Math.random()*tab.length);
         value_to_check = tab[rand_choose];
         damage = value_to_check;
         texture_to_check = hmap.get(value_to_check);
@@ -45,18 +46,25 @@ public class Ennemy {
 
         if ( value_to_check == 15 ) {
             textureAnime = new Animation(new TextureRegion(texture), 4, 0.5f);
+            bounds = new Rectangle(x, y, 1, 6);
         }
         else if ( value_to_check == 25){
             textureAnime = new Animation(new TextureRegion(texture), 4, 0.5f);
+            bounds = new Rectangle(x, y, 1, 6);
         }
-        else if ( value_to_check == 40){
+        else if ( value_to_check == 55){
+            textureAnime = new Animation(new TextureRegion(texture), 7, 0.5f);
+            bounds = new Rectangle(x, y, 1, 6 );
+        }
+        else if ( value_to_check == 45){
             textureAnime = new Animation(new TextureRegion(texture), 8, 0.5f);
+            bounds = new Rectangle(x, y, 1, 6);
         }
         else{
             textureAnime = new Animation(new TextureRegion(texture), 1, 0.5f);
+            bounds = new Rectangle(x, y, getEnnemy().getTexture().getWidth(), getEnnemy().getTexture().getHeight());
         }
         position = new Vector2(x , y);
-        bounds = new Rectangle(x, y, getEnnemy().getTexture().getWidth(), getEnnemy().getTexture().getHeight());
     }
 
     public void update(float dt) {
@@ -76,7 +84,7 @@ public class Ennemy {
     }
 
     public void reposition(float x){
-        position.set(x, 65);
+        position.set(x, 72);
         bounds.setPosition(position.x, position.y);
     }
 
