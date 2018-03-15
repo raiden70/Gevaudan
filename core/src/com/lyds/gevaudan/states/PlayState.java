@@ -23,9 +23,15 @@ import java.util.Random;
 
 
 public class PlayState extends State {
+    /* On définit ici un premier pas, à chaque pas, chaque bonus sera créer er positionné en fonction
+ * de ce pas  */
     private static final int SPACING_BE = 2000;
+    /* On définit ici un second pas, à chaque pas, chaque ennemie sera créer er positionné en fonction
+     * de ce pas  */
     private static final int SPACING=150;
+    /* On définit ici le nombre de bonus différents crées */
     private static final int COUNT = 10;
+    /* On définit ici le nombre d'ennemis différents crées */
     private static final int COUNT_OBSTCLE=6;
     private Array<Ennemy> ennemyArray;
     private Array<Bonus> bonusArray;
@@ -66,6 +72,7 @@ public class PlayState extends State {
         bonusArray = new Array<Bonus>();
         obstacleArray = new Array<Cloud>();
 
+        /* On initialise la creation des nuages, des bonus et des ennemis */
         for (int i = 1; i <= COUNT_OBSTCLE; i++) {
             obstacleArray.add(new Cloud(i * SPACING));
         }
@@ -109,6 +116,7 @@ public class PlayState extends State {
         updateground();
         wolf.update(dt);
 
+        /* C'est ici que l'on mettra à jour l'animation des bonus et des ennemis */
         for (Bonus bonus:bonusArray) {
             bonus.update(dt);
         }

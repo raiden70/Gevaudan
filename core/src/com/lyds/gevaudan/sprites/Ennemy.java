@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 import java.util.HashMap;
 
-
 /**
  * Created by Sacha on 29/01/2018.
  */
@@ -20,14 +19,12 @@ public class Ennemy {
     private Animation textureAnime;
 
     public Ennemy(float x){
-        int rand_choose;
-        int value_to_check;
-        int y = 72;
+        int rand_choose, value_to_check, y = 72, tab[] = {/*80, 30,*/ 15, 25, 55, 40, 45} ;
         String texture_to_check;
-        /* We declare a HashMap to set the damage corresponding to the texture of an ennemy*/
+        /* On déclare une hashmap pour définir les dégats en fonctions de la texture de l'ennemy */
         HashMap<Integer, String> hmap = new HashMap<Integer, String>();
 
-        /* We add the elements to the HashMap */
+        /* Ici on ajoute les éléments à la hashmap */
         /*hmap.put(80,"bear.png");
         hmap.put(30, "badger.png");*/
         hmap.put(15, "aranea.png");
@@ -37,33 +34,35 @@ public class Ennemy {
         hmap.put(40, "aigle_fixe.png");
         hmap.put(45,"sanglier.png");
 
-        int tab[] = {/*80, 30,*/ 15, 25, 55, 40, 45};
+        /* C'est ici que le nouvel ennemit est définit aléatoirement grâce à la fonction random */
         rand_choose = (int)( Math.random()*tab.length);
         value_to_check = tab[rand_choose];
         damage = value_to_check;
         texture_to_check = hmap.get(value_to_check);
         texture = new Texture(texture_to_check);
 
+        /* En fonction de la texture choisit nous définissons les limites du bound de l'image */
         if ( value_to_check == 15 ) {
             textureAnime = new Animation(new TextureRegion(texture), 4, 0.5f);
-            bounds = new Rectangle(x, y, 1, 6);
+            bounds = new Rectangle(x, y, getEnnemy().getRegionWidth()/4, getEnnemy().getRegionHeight());
         }
         else if ( value_to_check == 25){
             textureAnime = new Animation(new TextureRegion(texture), 4, 0.5f);
-            bounds = new Rectangle(x, y, 1, 6);
+            bounds = new Rectangle(x, y, getEnnemy().getRegionWidth()/4, getEnnemy().getRegionHeight());
         }
         else if ( value_to_check == 55){
             textureAnime = new Animation(new TextureRegion(texture), 7, 0.5f);
-            bounds = new Rectangle(x, y, 1, 6 );
+            bounds = new Rectangle(x, y, getEnnemy().getRegionWidth()/7, getEnnemy().getRegionHeight());
         }
         else if ( value_to_check == 45){
             textureAnime = new Animation(new TextureRegion(texture), 8, 0.5f);
-            bounds = new Rectangle(x, y, 1, 6);
+            bounds = new Rectangle(x, y, getEnnemy().getRegionWidth()/8, getEnnemy().getRegionHeight());
         }
         else{
             textureAnime = new Animation(new TextureRegion(texture), 1, 0.5f);
-            bounds = new Rectangle(x, y, getEnnemy().getTexture().getWidth(), getEnnemy().getTexture().getHeight());
+            bounds = new Rectangle(x, y, getEnnemy().getRegionWidth(), getEnnemy().getRegionHeight());
         }
+        bounds = new Rectangle(x, y, getEnnemy().getRegionWidth(), getEnnemy().getRegionHeight());
         position = new Vector2(x , y);
     }
 
@@ -75,14 +74,11 @@ public class Ennemy {
         return position;
     }
 
-    public Texture getTexture() {
-        return texture;
-    }
-
     public int getDamage() {
         return damage;
     }
 
+    /* On appelle cette fonction lorsque l'on souhaite repositionner l'ennemi */
     public void reposition(float x){
         position.set(x, 72);
         bounds.setPosition(position.x, position.y);

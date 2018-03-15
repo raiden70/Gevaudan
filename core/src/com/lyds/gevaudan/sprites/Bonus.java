@@ -14,10 +14,6 @@ import java.util.HashMap;
 
 public class Bonus {
 
-    private static final int GRAVITY=-10;
-
-    public int MOVEMENTS=300;
-    private Vector3 velocity;
     private int lifePoints;
     private Vector2 position;
     private Rectangle bounds;
@@ -25,15 +21,12 @@ public class Bonus {
     private Animation textureAnime;
 
     public Bonus(float x){
-        int rand_choose;
-        int value_to_check;
-        int y = 72;
+        int rand_choose, value_to_check, y = 72, tab[] = {/*35, */10, 25, 15, 30, 5};
         String texture_to_check;
-        /* We declare a HashMap to set the damage corresponding to the texture of an ennemy*/
+        /* On déclare une hashmap pour définir les points bonus en plus en fonctions de la texture de l'item Bonus  */
         HashMap<Integer, String> hmap = new HashMap<Integer, String>();
-        velocity=new Vector3(0,0,0);
 
-        /* We add the elements to the HashMap */
+        /* Ici on ajoute les éléments à la hashmap */
         //hmap.put(35,"biche.png");
         hmap.put(10, "fraise.png");
         hmap.put(25, "chicken.png");
@@ -41,14 +34,14 @@ public class Bonus {
         hmap.put(30,"mouton.png");
         hmap.put(5, "viande.png");
 
-        int tab[] = {/*35, */10, 25, 15, 30, 5};
-        int longueur = tab.length;
-        rand_choose = (int)( Math.random()*longueur);
+        /* C'est ici que le nouvel ennemit est définit aléatoirement grâce à la fonction random */
+        rand_choose = (int)( Math.random()*tab.length);
         value_to_check = tab[rand_choose];
         lifePoints = value_to_check;
         texture_to_check = hmap.get(value_to_check);
         texture = new Texture(texture_to_check);
 
+        /* En fonction de la texture choisit nous définissons les limites du bound de l'image */
         if ( value_to_check == 30) {
             textureAnime = new Animation(new TextureRegion(texture), 3, 0.5f);
             bounds = new Rectangle(x, y, 1, 6);
@@ -77,14 +70,11 @@ public class Bonus {
         return position;
     }
 
-    public Texture getTexture() {
-        return texture;
-    }
-
     public TextureRegion getBonus() {
         return textureAnime.getFrame();
     }
 
+    /* On appelle cette fonction lorsque l'on souhaite repositionner le bonus */
     public void reposition(float x){
         position.set(x, 72);
         bounds.setPosition(position.x, position.y);
@@ -105,6 +95,5 @@ public class Bonus {
     public int getLifePoints() {
         return lifePoints;
     }
-
 }
 

@@ -14,7 +14,8 @@ public class Cloud {
     private Texture texture;
     private Vector2 position;
     private Random rand;
-    private int damage;
+
+    /* Les nuages, qui représentent un des éléments du décor sont définis sur cette classe */
     public Cloud(float x)
     {
         String clouds[]={"cloud1.png","cloud2.png","cloud3.png","cloud4.png","cloud5.png","cloud6.png"};
@@ -27,7 +28,6 @@ public class Cloud {
     public Texture getTexture() {
         return texture;
     }
-
     public Vector2 getPosition() {
         return position;
     }

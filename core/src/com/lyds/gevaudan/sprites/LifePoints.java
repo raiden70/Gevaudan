@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashMap;
 
-import javax.swing.JFrame;
-
 /**
  * Created by Sacha on 05/03/2018.
  */
@@ -18,13 +16,12 @@ public class LifePoints {
     private HashMap<Integer, String> barre_points_vie;
 
     public LifePoints(){
-        int y = 420;
-        int x = 5;
+        int y = 420, x = 5;
         String texture_to_check;
-        /* We declare a HashMap to set the damage corresponding to the texture of an ennemy*/
+        /* On déclare une hashmap pour définir les points de vies en fonctions de la texture de la barre de points de vie */
         barre_points_vie = new HashMap<Integer, String>();
 
-        /* We add the elements to the HashMap */
+        /* Ici on ajoute les éléments à la hashmap */
         barre_points_vie.put(5,"vie5.png");
         barre_points_vie.put(10, "vie10.png");
         barre_points_vie.put(20, "vie20.png");
@@ -42,6 +39,10 @@ public class LifePoints {
         texture = new Texture(texture_to_check);
         position = new Vector2(x , y);
     }
+
+        /*  Cette fonction permet de vérifier les pojnts de vie du loup et charger l'image correspondante à
+            sa quantité de points de vie actuel
+        */
 
     public Texture check_lifePoints(int pv){
         Texture texture_to_set;

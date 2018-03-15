@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.lyds.gevaudan.Gevaudan;
 
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 
 public class ScoreState extends State {
 
-    private Skin skin;
     private Stage stage;
     private Texture background;
     private Texture score_title;
@@ -30,12 +28,10 @@ public class ScoreState extends State {
     private ArrayList<String> scores;
     private ArrayList<Integer> scores_integer;
     private ArrayList<Label> text;
-    private boolean one;
 
-    protected ScoreState(GameStateManager gsm, ArrayList<Integer> score) {
+    public ScoreState(GameStateManager gsm, ArrayList<Integer> score) {
         super(gsm);
 
-        one = false;
         text = new ArrayList<Label>(20);
         scores = new ArrayList<String>(100);
         scores_integer = new ArrayList<Integer>();
@@ -152,7 +148,6 @@ public class ScoreState extends State {
 
     @Override
     public void dispose() {
-        skin.dispose();
         background.dispose();
         score_title.dispose();
         stage.dispose();

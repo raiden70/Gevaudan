@@ -23,16 +23,15 @@ public class HistoryState extends State {
     private ImageButton button0;
     private Texture history_1;
     private Texture history_2;
-    private Skin skin;
 
-    protected HistoryState(GameStateManager gsm) {
+    /* A travers cette classe on affiche l'histoire du loup à travers 2 images */
+    public HistoryState(GameStateManager gsm) {
         super(gsm);
 
         background = new Texture("background1.png");
         history_1 = new Texture("histoire1.png");
         history_2 = new Texture("histoire2.png");
         cam.setToOrtho(false, Gevaudan.WIDTH,Gevaudan.HEIGHT);
-
         create_stage();
     }
 
@@ -71,16 +70,16 @@ public class HistoryState extends State {
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
+
         spriteBatch.begin();
         int diff2 = (Gevaudan.HEIGHT)-(history_1.getHeight());
         int diff2_2 = (Gevaudan.HEIGHT)-(history_1.getHeight() + history_2.getHeight());
         spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
         spriteBatch.draw(history_1, (Gevaudan.WIDTH)/20 ,diff2);
         spriteBatch.draw(history_2, (Gevaudan.WIDTH)/20 ,diff2_2);
-
         button0.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight() - (Gdx.graphics.getHeight()) ));
-
         spriteBatch.end();
+
         stage.act();
         stage.draw();
     }
@@ -90,6 +89,7 @@ public class HistoryState extends State {
     public void dispose() {
         background.dispose();
         history_1.dispose();
+        history_2.dispose();
         stage.dispose();
     }
 }
