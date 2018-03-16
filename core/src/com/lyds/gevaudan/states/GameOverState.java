@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class GameOverState extends State {
 
-    private Stage stage;
+    private Stage stageG;
     private Texture background;
     private Texture game_over;
     private ImageButton button0;
@@ -88,8 +88,8 @@ public class GameOverState extends State {
         différentes bouttons.
      */
     public void create_stage(){
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+        stageG = new Stage();
+        Gdx.input.setInputProcessor(stageG);
 
         /* On commence par définir la texture de chacun de ces bouttons */
         Texture myTexture0 = new Texture(Gdx.files.internal("sauverrec.png"));
@@ -123,13 +123,13 @@ public class GameOverState extends State {
         text.setPosition((Gdx.graphics.getWidth()/8), (Gdx.graphics.getHeight()/3));
 
         /* On ajoute tous les élements à l'objet Stage */
-        stage.addActor(button0);
-        stage.addActor(button1);
-        stage.addActor(button2);
-        stage.addActor(button3);
-        stage.addActor(text);
-        stage.addActor(text1);
-        Gdx.input.setInputProcessor(stage);
+        stageG.addActor(button0);
+        stageG.addActor(button1);
+        stageG.addActor(button2);
+        stageG.addActor(button3);
+        stageG.addActor(text);
+        stageG.addActor(text1);
+        Gdx.input.setInputProcessor(stageG);
     }
 
     @Override
@@ -214,15 +214,15 @@ public class GameOverState extends State {
         spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
         spriteBatch.draw(game_over, (Gevaudan.WIDTH/2)-(game_over.getWidth()/2) ,(Gevaudan.HEIGHT)-(game_over.getHeight()));
         spriteBatch.end();
-        stage.act();
-        stage.draw();
+        stageG.act();
+        stageG.draw();
     }
 
     @Override
     public void dispose() {
         background.dispose();
         game_over.dispose();
-        stage.dispose();
+        stageG.clear();
     }
 
     /* On sauve tous les anciens scores de notre fichier texte dans une variable */

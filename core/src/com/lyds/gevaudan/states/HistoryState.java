@@ -90,6 +90,6 @@ public class HistoryState extends State {
         background.dispose();
         history_1.dispose();
         history_2.dispose();
-        stage.dispose();
+        stage.clear();
     }
 }

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 public class MenuState extends State {
 
-    private Stage stage;
+    private Stage stageM;
     private Texture background;
     private Texture menu_title;
     private ImageButton button_options;
@@ -48,8 +48,8 @@ public class MenuState extends State {
     }
 
     public void create_stage(){
-        stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
+        stageM = new Stage();
+        Gdx.input.setInputProcessor(stageM);
 
         Texture histoire_Texture = new Texture(Gdx.files.internal("histoire.png"));
         TextureRegion histoire_TextureRegion = new TextureRegion(histoire_Texture);
@@ -85,12 +85,12 @@ public class MenuState extends State {
         button_histoire.setPosition( diff2,(Gdx.graphics.getHeight()/2) - 25 );
         button_play.setPosition((Gdx.graphics.getHeight() - Gdx.graphics.getWidth()/3) , computed - 25  );
 
-        stage.addActor(button_histoire);
-        stage.addActor(button_options);
-        stage.addActor(button_play);
-        stage.addActor(button_quitter);
-        stage.addActor(button_scores);
-        Gdx.input.setInputProcessor(stage);
+        stageM.addActor(button_histoire);
+        stageM.addActor(button_options);
+        stageM.addActor(button_play);
+        stageM.addActor(button_quitter);
+        stageM.addActor(button_scores);
+        Gdx.input.setInputProcessor(stageM);
     }
 
     @Override
@@ -108,6 +108,7 @@ public class MenuState extends State {
 
                 if (button_histoire.isPressed()){
                     gsm.set(new HistoryState(gsm));
+                    dispose();
                 }
                 return true;
             }
@@ -165,15 +166,16 @@ public class MenuState extends State {
         spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
         spriteBatch.draw(menu_title, (Gevaudan.WIDTH/2)-(menu_title.getWidth()/2) ,(Gevaudan.HEIGHT)-(menu_title.getHeight()));
         spriteBatch.end();
-        stage.act();
-        stage.draw();
+        stageM.act();
+        stageM.draw();
     }
 
     @Override
     public void dispose() {
         background.dispose();
         menu_title.dispose();
-        stage.dispose();
+        stageM.clear();
+        //stageM.dispose();
     }
 
     public void save_score()throws IOException {
