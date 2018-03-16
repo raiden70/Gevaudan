@@ -150,6 +150,6 @@ public class ScoreState extends State {
     public void dispose() {
         background.dispose();
         score_title.dispose();
-        stage.dispose();
+        stage.clear();
     }
 }
