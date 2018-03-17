@@ -36,6 +36,8 @@ public class MenuState extends State {
 
     private boolean one;
 
+    /* Constructeur du MenuState
+     */
     public MenuState(GameStateManager gsm) {
         super(gsm);
 
@@ -47,6 +49,7 @@ public class MenuState extends State {
         create_stage();
     }
 
+    /* Ici on place tous les boutons que l'on souhaite insérer dans le stage. */
     public void create_stage(){
         stageM = new Stage();
         Gdx.input.setInputProcessor(stageM);
@@ -98,6 +101,10 @@ public class MenuState extends State {
 
     }
 
+    /* Dans cette fonction overrided update
+        on précise vers quel State nous allons migrer:
+        PlayState, HistoryState, ScoreState ou quitter le jeu
+     */
     @Override
     public void update(float dt) {
         handleInput();
@@ -158,6 +165,7 @@ public class MenuState extends State {
         cam.update();
     }
 
+    /*Fonction d'affichage de tous les élements du menu */
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
@@ -169,6 +177,10 @@ public class MenuState extends State {
         stageM.draw();
     }
 
+    /* C'est la fonction dispose va effetuer la libération de l'espace mémoire alloué pour
+       les différents élements déclarés.
+       On utilisera clear() pour un objet de Type Stage
+     */
     @Override
     public void dispose() {
         background.dispose();
@@ -176,6 +188,8 @@ public class MenuState extends State {
         stageM.clear();
     }
 
+    /* Cette fonction est utilisée pour lire notre fichier texte contenant tous nos scores*/
+    /* On stocke la liste de tous les scores dans la variable 'scores' */
     public void save_score()throws IOException {
         int score;
         try {
@@ -203,10 +217,12 @@ public class MenuState extends State {
         }
     }
 
+    /** l'attribut scores_to_display
+     * va recevoir les 10 meilleurs scores
+     * On va donc afficher scores_to_display
+     */
     public void update_best_score(){
-        /** l'attribut scores_to_show
-         * va recevoir les 10 meilleurs scores
-         */
+
         int max = 0;
         int taille = scores.size();
         int i = 0, j;

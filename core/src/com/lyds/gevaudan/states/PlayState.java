@@ -85,6 +85,7 @@ public class PlayState extends State {
         }
     }
 
+    /*Gestion de la vitesse et des sauts du loup*/
     @Override
     public void handleInput() {
         if (Gdx.input.justTouched()||(Gdx.input.isKeyPressed(Input.Keys.UP)))
@@ -133,6 +134,9 @@ public class PlayState extends State {
         score_final = String.valueOf(score);
         text.setText(score_final);
 
+        /* Ici on effectue la reposition des nuages en fonction du point de vue de la camera
+            de l'utilisateur. Ce qui donne l'illusion d'avoir une quatité illimité de nuages
+         */
         for (Cloud cloud :obstacleArray)
         {
             if(cam.position.x-(cam.viewportWidth/2)> cloud.getPosition().x+ cloud.width())
@@ -143,9 +147,12 @@ public class PlayState extends State {
 
         for (Ennemy ennemy :ennemyArray){
             if ( cam.position.x-(cam.viewportWidth/2)> ennemy.getPosition().x + ennemy.width())
-            {
+            {   /* De la même manière que les nuages on repositionne les ennemis crées */
                 ennemy.reposition(ennemy.getPosition().x + ennemy.width() + SPACING_BE*COUNT);
             }
+            /* Ici on effectue la detection des collisions et on fait baisser les points de vies
+               du loup en conséquence
+             */
             if (ennemy.collides(wolf.getWolf_bounds())){
                 wolf.update_ennemy_lifePoints(ennemy.getDamage());
                 point_de_vies = String.valueOf(wolf.getLifePoints());
@@ -163,9 +170,12 @@ public class PlayState extends State {
 
         for (Bonus bonus :bonusArray){
             if ( cam.position.x-(cam.viewportWidth/2)> bonus.getPosition().x + bonus.width())
-            {
+            {   /* De la même manière que les nuages on repositionne les bonus crées */
                 bonus.reposition(bonus.getPosition().x + bonus.width() + SPACING_BE*COUNT);
             }
+            /* Ici on effectue la detection des collisions et on fait augmenter les points de vies
+               du loup en conséquence
+             */
             if (bonus.collides(wolf.getWolf_bounds())) {
                 wolf.update_bonus_lifePoints(bonus.getLifePoints());
                 point_de_vies = String.valueOf(wolf.getLifePoints());
@@ -179,6 +189,7 @@ public class PlayState extends State {
         cam.update();
     }
 
+    /*Affichage de les tous les éléments du playState*/
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
@@ -210,8 +221,8 @@ public class PlayState extends State {
     @Override
     public void dispose()
     {
-
     }
+    /* Affichage du sol */
     private void updateground()
     {
         if(cam.position.x-(cam.viewportWidth/2)>gpos1.x+ground.getWidth())
