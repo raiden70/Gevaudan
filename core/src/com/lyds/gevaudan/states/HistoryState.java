@@ -77,7 +77,7 @@ public class HistoryState extends State {
         spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
         spriteBatch.draw(history_1, (Gevaudan.WIDTH)/20 ,diff2);
         spriteBatch.draw(history_2, (Gevaudan.WIDTH)/20 ,diff2_2);
-        button0.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight() - (Gdx.graphics.getHeight()) ));
+        button0.setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/9, 0 );
         spriteBatch.end();
 
         stage.act();
