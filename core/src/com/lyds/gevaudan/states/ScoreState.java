@@ -111,34 +111,37 @@ public class ScoreState extends State {
         spriteBatch.draw(background,cam.position.x-(cam.viewportWidth/2),cam.position.y-(cam.viewportHeight/2)-1);
         spriteBatch.draw(score_title, (Gevaudan.WIDTH/2)-(score_title.getWidth()/2) ,(Gevaudan.HEIGHT)-(score_title.getHeight()));
 
-        text.get(0).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight()/2) );
+        int diff2 = ((Gdx.graphics.getHeight()/4) + (Gdx.graphics.getHeight()/3));
+        int diff3 = (Gdx.graphics.getHeight()) - (Gdx.graphics.getHeight()/12);
+
+        text.get(0).setPosition(diff2 , (Gdx.graphics.getHeight()/2));
         text.get(0).draw(spriteBatch, 1);
 
-        text.get(1).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight()/2) - 35 );
+        text.get(1).setPosition(diff2 ,(Gdx.graphics.getHeight()/2) - (Gdx.graphics.getHeight()/12));
         text.get(1).draw(spriteBatch, 1);
 
-        text.get(2).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight()/2) - 70 );
+        text.get(2).setPosition(diff2 , (Gdx.graphics.getHeight()/2) - (Gdx.graphics.getHeight()/6));
         text.get(2).draw(spriteBatch, 1);
 
-        text.get(3).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight()/2) - 105 );
+        text.get(3).setPosition(diff2 , (Gdx.graphics.getHeight()/2) - (Gdx.graphics.getHeight()/4));
         text.get(3).draw(spriteBatch, 1);
 
-        text.get(4).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 , (Gdx.graphics.getHeight()/2) - 140 );
+        text.get(4).setPosition(diff2, (Gdx.graphics.getHeight()/2) - (Gdx.graphics.getHeight()/3));
         text.get(4).draw(spriteBatch, 1);
 
-        text.get(5).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 + 130 , (Gdx.graphics.getHeight()/2) );
+        text.get(5).setPosition(diff3 , (Gdx.graphics.getHeight()/2) );
         text.get(5).draw(spriteBatch, 1);
 
-        text.get(6).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 + 130, (Gdx.graphics.getHeight()/2)- 35 );
+        text.get(6).setPosition(diff3, (Gdx.graphics.getHeight()/2) - (Gdx.graphics.getHeight()/12));
         text.get(6).draw(spriteBatch, 1);
 
-        text.get(7).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 + 130, (Gdx.graphics.getHeight()/2) - 70);
+        text.get(7).setPosition(diff3, (Gdx.graphics.getHeight()/2) - (Gdx.graphics.getHeight()/6));
         text.get(7).draw(spriteBatch, 1);
 
-        text.get(8).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 + 130, (Gdx.graphics.getHeight()/2) - 105 );
+        text.get(8).setPosition(diff3,(Gdx.graphics.getHeight()/2) - (Gdx.graphics.getHeight()/4));
         text.get(8).draw(spriteBatch, 1);
 
-        text.get(9).setPosition(Gdx.graphics.getWidth()/2 - Gdx.graphics.getWidth()/8 + 130 , (Gdx.graphics.getHeight()/2) - 140 );
+        text.get(9).setPosition(diff3 , (Gdx.graphics.getHeight()/2) - (Gdx.graphics.getHeight()/3));
         text.get(9).draw(spriteBatch, 1);
 
         spriteBatch.end();

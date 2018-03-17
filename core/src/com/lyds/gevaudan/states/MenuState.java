@@ -155,7 +155,6 @@ public class MenuState extends State {
                 return true;
             }
         });
-
         cam.update();
     }
 
@@ -175,7 +174,6 @@ public class MenuState extends State {
         background.dispose();
         menu_title.dispose();
         stageM.clear();
-        //stageM.dispose();
     }
 
     public void save_score()throws IOException {
