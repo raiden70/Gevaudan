@@ -43,7 +43,7 @@ public class MenuState extends State {
 
         scores = new ArrayList<Integer>();
         scores_to_display = new ArrayList<Integer>();
-        background = new Texture("background1.png");
+        background = new Texture("view3.png");
         menu_title = new Texture("menu_title.png");
         cam.setToOrtho(false, Gevaudan.WIDTH,Gevaudan.HEIGHT);
         create_stage();

@@ -76,7 +76,7 @@ public class GameOverState extends State {
         scores_to_comp = new ArrayList<Integer>();
         scores_to_display = new ArrayList<Integer>();
 
-        background = new Texture("background1.png");
+        background = new Texture("view3.png");
         game_over = new Texture("game_Over.png");
         cam.setToOrtho(false, Gevaudan.WIDTH,Gevaudan.HEIGHT);
 
