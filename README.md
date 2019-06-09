@@ -1,2 +1,2 @@
 # Gevaudan
-projet de Genie Logiciel
+Cross platform video game for software engineering course.
